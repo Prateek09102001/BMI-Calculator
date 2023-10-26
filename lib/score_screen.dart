@@ -27,44 +27,57 @@ class ScoreScreen extends StatelessWidget {
       ),
       body: Container(
           padding: const EdgeInsets.all(12),
-          child: Card(
-            shadowColor: Colors.black,
-              surfaceTintColor: Colors.grey,
-              elevation: 12,
-              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-              child: Column(
+          child: Column(
+            children: [
+              Card(
+                shadowColor: Colors.black,
+                  surfaceTintColor: Colors.grey,
+                  elevation: 12,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Your Score",
+                          style: TextStyle(fontSize: 30,
+                              color: Colors.blue ),
+                        ),
+                        const SizedBox(height: 10,),
+                        PrettyGauge(
+                          gaugeSize: 300,
+                          minValue: 0,
+                          maxValue: 40,
+
+                          segments: [
+                            GaugeSegment("UnderWeight", 18.5, Colors.red),
+                            GaugeSegment("Normal", 6.4, Colors.green),
+                            GaugeSegment("OverWeight", 5, Colors.orange),
+                            GaugeSegment("Obese", 10.1, Colors.pink),
+                          ],
+                          valueWidget: Text(
+                            bmiScore.toStringAsFixed(1),
+                            style: const TextStyle(fontSize: 40),
+                          ),
+                          currentValue: bmiScore.toDouble(),
+                          needleColor: Colors.blue,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ])
+              ),
+              const SizedBox(height: 40,),
+              Card(
+                shadowColor: Colors.grey,
+                surfaceTintColor: Colors.black,
+                elevation: 12,
+                shape:  const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Your Score",
-                      style: TextStyle(fontSize: 30,
-                          color: Colors.blue ),
-                    ),
-                    const SizedBox(height: 10,),
-                    PrettyGauge(
-                      gaugeSize: 300,
-                      minValue: 0,
-                      maxValue: 40,
-
-                      segments: [
-                        GaugeSegment("UnderWeight", 18.5, Colors.red),
-                        GaugeSegment("Normal", 6.4, Colors.green),
-                        GaugeSegment("OverWeight", 5, Colors.orange),
-                        GaugeSegment("Obese", 10.1, Colors.pink),
-                      ],
-                      valueWidget: Text(
-                        bmiScore.toStringAsFixed(1),
-                        style: const TextStyle(fontSize: 40),
-                      ),
-                      currentValue: bmiScore.toDouble(),
-                      needleColor: Colors.blue,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     Text(
                       bmiStatus!,
                       style: TextStyle(fontSize: 20,
-                      color: bmiStatusColor!),
+                          color: bmiStatusColor!),
                     ),
                     const SizedBox(
                       height: 10,
@@ -93,7 +106,12 @@ class ScoreScreen extends StatelessWidget {
                         }, child: const Text("Share"))
                       ],
                     )
-                  ]))),
+                  ],
+                ),
+              )
+            ],
+          )
+      ),
     );
   }
 

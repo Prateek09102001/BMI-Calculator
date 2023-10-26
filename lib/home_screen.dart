@@ -33,77 +33,92 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.only(left: 12,right: 12,top: 60,bottom: 60),
-          child: Card(
-            elevation: 12,
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-            child: Column(
-              children: [
-                GenderWidget(
-                  onChange: (genderVal){
-                  _gender = genderVal;
-                },),
-                HeightWidget(
-                  onChange: (heightVal){
-                  _height = heightVal;
-                },),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            children: [
+              Card(
+                elevation: 12,
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Column(
                   children: [
-                    AgeWidget(onChange: (ageVal){
-                      _age = ageVal;
-                    },
-                        title: "Age",
-                        intiValue: 30,
-                        min: 0,
-                        max: 100),
-                    AgeWidget(onChange: (weightVal){
-                      _weight = weightVal;
-                    },
-                        title: "Weight(Kg)",
-                        intiValue: 50,
-                        min: 0,
-                        max: 200),
+                    GenderWidget(
+                      onChange: (genderVal){
+                      _gender = genderVal;
+                    },),
+                    HeightWidget(
+                      onChange: (heightVal){
+                      _height = heightVal;
+                    },),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AgeWidget(onChange: (ageVal){
+                          _age = ageVal;
+                        },
+                            title: "Age",
+                            intiValue: 30,
+                            min: 0,
+                            max: 100),
+                        AgeWidget(onChange: (weightVal){
+                          _weight = weightVal;
+                        },
+                            title: "Weight(Kg)",
+                            intiValue: 50,
+                            min: 0,
+                            max: 200),
+                      ],
+                    ),
+
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 60
-                  ),
-                  child: SwipeableButtonView(
-                    isFinished: _isFinished,
-                      onFinish: () async {
+              ),
+               SizedBox(height: 30,),
+               Card(
+                 color: Colors.blueAccent.shade100,
+                 elevation: 12,
+                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 60
+                      ),
+                      child: SwipeableButtonView(
+                          isFinished: _isFinished,
+                          onFinish: () async {
 
-                      await Navigator.push(
-                        context,
-                      PageTransition(
-                        child: ScoreScreen(
-                          bmiScore: _bmiScore,
-                          age: _age,
-                        ),
-                        type: PageTransitionType.fade
-                      ));
+                            await Navigator.push(
+                                context,
+                                PageTransition(
+                                    child: ScoreScreen(
+                                      bmiScore: _bmiScore,
+                                      age: _age,
+                                    ),
+                                    type: PageTransitionType.fade
+                                ));
 
-                        setState(() {
-                          _isFinished = false;
-                        });
-                      },
-                      onWaitingProcess: (){
-                      //BMI Calculate here
-                        calculateBmi();
-                      Future.delayed(const Duration(seconds: 1),(){
-                        setState(() {
-                          _isFinished = true;
-                        });
-                      });
-                      },
-                      activeColor: Colors.black,
-                      buttonWidget: const Icon(Icons.arrow_forward_ios_rounded,
-                      color: Colors.black,),
-                      buttonText: "Calculate"),
-                )
-              ],
-            ),
+                            setState(() {
+                              _isFinished = false;
+                            });
+                          },
+                          onWaitingProcess: (){
+                            //BMI Calculate here
+                            calculateBmi();
+                            Future.delayed(const Duration(seconds: 1),(){
+                              setState(() {
+                                _isFinished = true;
+                              });
+                            });
+                          },
+                          activeColor: Colors.black,
+                          buttonWidget: const Icon(Icons.arrow_forward_ios_rounded,
+                            color: Colors.black,),
+                          buttonText: "Calculate"),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
